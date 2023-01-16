@@ -35,5 +35,11 @@ async def ping(ctx):
     await ctx.send('Pong!')
 
 
+@bot.hybrid_command(description="Add 2 numbers together")
+@app_commands.describe(num1 = "The first number", num2 = "The second number")
+async def add(ctx, num1: int, num2: int):
+    await ctx.send(num1 + num2)
+
+
 # Running the bot
 bot.run(TOKEN)
