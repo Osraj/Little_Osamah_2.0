@@ -32,7 +32,8 @@ async def on_ready():
 
 @bot.hybrid_command(description="This command will be used to test the bot")
 async def ping(ctx):
-    await ctx.send('Pong!')
+    bot_latency = round(bot.latency * 1000)
+    await ctx.send(f"Pong! \nbot latency: {bot_latency}ms")
 
 
 @bot.hybrid_command(description="Add 2 numbers together")
