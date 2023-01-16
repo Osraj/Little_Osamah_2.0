@@ -3,9 +3,7 @@ import asyncio
 import os
 import discord
 from discord.ext import commands, tasks
-from discord import app_commands
 from config import TOKEN  # <-- This line is for the token
-import random
 from itertools import cycle  # <-- This line is for the bot status cycle
 
 # Enabling logging for this bot

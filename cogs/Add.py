@@ -1,4 +1,4 @@
-import discord
+from discord import app_commands
 from discord.ext import commands
 
 
@@ -11,9 +11,10 @@ class Add(commands.Cog):
         print("Add.py is ready")
 
     # --------------------------------------------------
-    # The Actual Ping Command Code
+    # The Actual Command Code
     # --------------------------------------------------
-    @commands.command()
+    @commands.hybrid_command(description="will add two numbers")
+    @app_commands.describe(num1="the first number", num2="the second number")
     async def add(self, ctx, num1: int, num2: int):
         await ctx.send(num1 + num2)
 

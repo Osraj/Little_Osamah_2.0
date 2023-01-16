@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 import random
 
@@ -12,10 +11,9 @@ class Random_Quote(commands.Cog):
         print("Random_Quote.py is ready")
 
     # --------------------------------------------------
-    # The Actual Ping Command Code
+    # The Actual Command Code
     # --------------------------------------------------
-    # @bot.hybrid_command(aliases= ["quote of the day", "quote"],description="will give you are random response")
-    @commands.command()
+    @commands.hybrid_command(aliases=["quote of the day", "quote"], description="will give you are random response")
     async def random_quote(self, ctx):
         with open("Random_Quotes.txt", "r") as f:
             quotes = f.readlines()

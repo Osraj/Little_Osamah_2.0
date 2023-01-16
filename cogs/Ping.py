@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 
 
@@ -11,9 +10,9 @@ class Ping(commands.Cog):
         print("Ping.py is ready")
 
     # --------------------------------------------------
-    # The Actual Ping Command Code
+    # The Actual Command Code
     # --------------------------------------------------
-    @commands.command()
+    @commands.hybrid_command(description="Shows the bot's latency in ms.")
     async def ping(self, ctx):
         bot_latency = round(self.bot.latency * 1000)
         await ctx.send(f"Pong! \nbot latency: {bot_latency}ms")
