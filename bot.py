@@ -77,8 +77,8 @@ async def load():
             Synced_Cogs.append(filename[:-3])
     print("----------------------------------------")
     print(f"Loaded Cogs: {Synced_Cogs}")
-    Cogs_Count = len(Synced_Cogs)
-    print(f"Synced Commands: {Cogs_Count}")
+    cogs_count = len(Synced_Cogs)
+    print(f"Synced Files: {cogs_count}")
     print("----------------------------------------")
 
 
