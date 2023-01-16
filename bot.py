@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from config import TOKEN # <-- This line is for the token
+import random
 
 # The Bot configs
 bot_description = ''' a bot that does everything you want it to do '''
@@ -39,6 +40,15 @@ async def ping(ctx):
 @app_commands.describe(num1 = "The first number", num2 = "The second number")
 async def add(ctx, num1: int, num2: int):
     await ctx.send(num1 + num2)
+
+
+@bot.hybrid_command(description="will give you are random response")
+async def random_quote(ctx):
+    with open("Random_Quotes.txt", "r") as f:
+        quotes = f.readlines()
+        response = random.choice(quotes)
+        await ctx.send(response)
+
 
 
 # Running the bot
