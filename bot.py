@@ -30,7 +30,6 @@ async def on_ready():
         print(f'Failed to sync commands: {e}')
 
 
-# a Testing Command
 @bot.hybrid_command(description="This command will be used to test the bot")
 async def ping(ctx):
     await ctx.send('Pong!')
@@ -42,13 +41,12 @@ async def add(ctx, num1: int, num2: int):
     await ctx.send(num1 + num2)
 
 
-@bot.hybrid_command(description="will give you are random response")
+@bot.hybrid_command(aliases= ["quote of the day", "quote"],description="will give you are random response")
 async def random_quote(ctx):
     with open("Random_Quotes.txt", "r") as f:
         quotes = f.readlines()
         response = random.choice(quotes)
         await ctx.send(response)
-
 
 
 # Running the bot
