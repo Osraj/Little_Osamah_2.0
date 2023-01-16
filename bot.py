@@ -30,11 +30,12 @@ bot = commands.Bot(command_prefix=bot_prefix, description=bot_description, inten
 async def on_ready():
     change_status.start()
     await bot.change_presence(status=discord.Status.online)
+    print('------')
     print(f'Logged in as [{bot.user}] (ID: {bot.user.id})')
     print('------')
     try:
         synced = await bot.tree.sync()
-        print(f'Synced {len(synced)} commands')
+        # print(f'Synced {len(synced)} commands')
     except Exception as e:
         print(f'Failed to sync commands: {e}')
 
@@ -52,10 +53,16 @@ async def change_status():
 
 # loading cogs
 async def load():
+    Synced_Cogs = []
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
-            print(f"{filename[:-3]} is Loaded")
+            Synced_Cogs.append(filename[:-3])
+    print("----------------------------------------")
+    print(f"Loaded Cogs: {Synced_Cogs}")
+    Cogs_Count = len(Synced_Cogs)
+    print(f"Synced Commands: {Cogs_Count}")
+    print("----------------------------------------")
 
 
 async def main():

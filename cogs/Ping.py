@@ -7,7 +7,8 @@ class Ping(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Ping.py is ready")
+        # print("Ping.py is ready")
+        pass
 
     # --------------------------------------------------
     # The Actual Command Code

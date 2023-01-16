@@ -8,7 +8,8 @@ class Add(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Add.py is ready")
+        # print("Add.py is ready")
+        pass
 
     # --------------------------------------------------
     # The Actual Command Code

@@ -8,7 +8,8 @@ class Random_Quote(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Random_Quote.py is ready")
+        # print("Random_Quote.py is ready")
+        pass
 
     # --------------------------------------------------
     # The Actual Command Code
