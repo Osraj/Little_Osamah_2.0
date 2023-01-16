@@ -30,7 +30,7 @@ async def on_ready():
 
 
 # a Testing Command
-@bot.command(description="testing command")
+@bot.hybrid_command(description="This command will be used to test the bot")
 async def ping(ctx):
     await ctx.send('Pong!')
 
