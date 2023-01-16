@@ -4,6 +4,7 @@
 import asyncio
 import os
 import discord
+from discord import app_commands
 from discord.ext import commands, tasks
 from config import TOKEN  # <-- This line is for the token
 from itertools import cycle  # <-- This line is for the bot status cycle
@@ -70,16 +71,30 @@ async def change_status():
 # loading cogs
 # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
 async def load():
-    Synced_Cogs = []
+    synced_cogs = []
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
-            Synced_Cogs.append(filename[:-3])
+            synced_cogs.append(filename[:-3])
     print("----------------------------------------")
-    print(f"Loaded Cogs: {Synced_Cogs}")
-    cogs_count = len(Synced_Cogs)
+    print(f"Loaded Cogs: {synced_cogs}")
+    cogs_count = len(synced_cogs)
     print(f"Synced Files: {cogs_count}")
     print("----------------------------------------")
+
+
+async def unload():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.unload_extension(f"cogs.{filename[:-3]}")
+
+
+@bot.hybrid_command(description="for reloading cogs")
+@app_commands.describe(cog="The cog to reload")
+async def reload(ctx, cog="all cogs"):
+    await unload()
+    await load()
+    await ctx.send(f"Reloaded {cog}")
 
 
 # --------------------------------------------------
