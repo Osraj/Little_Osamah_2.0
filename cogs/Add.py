@@ -13,7 +13,7 @@ class Add(commands.Cog):
     # --------------------------------------------------
     # The Actual Ping Command Code
     # --------------------------------------------------
-    @commands.command
+    @commands.command()
     async def add(self, ctx, num1: int, num2: int):
         await ctx.send(num1 + num2)
 
