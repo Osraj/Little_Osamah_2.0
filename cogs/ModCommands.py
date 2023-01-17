@@ -3,7 +3,7 @@ from discord import app_commands
 from discord.ext import commands
 
 
-class Moderation(commands.Cog):
+class ModCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -122,4 +122,4 @@ class Moderation(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Moderation(bot))
+    await bot.add_cog(ModCommands(bot))
