@@ -64,7 +64,7 @@ async def on_guild_join(guild):
 # Removing prefixes from the prefixes.json file when the bot leaves a server
 # --------------------------------------------------
 @bot.event
-async def on_guild_remove(guild):
+async def on_guild_leave(guild):
     with open("jsonfiles/prefixes.json", "r") as f:
         prefixes = json.load(f)
 
