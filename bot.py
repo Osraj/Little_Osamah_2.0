@@ -2,6 +2,7 @@
 # importing needed libraries
 # --------------------------------------------------
 import asyncio
+import json
 import os
 import discord
 from discord import app_commands
@@ -18,7 +19,6 @@ discord.utils.setup_logging()
 # The Bot configs
 # --------------------------------------------------
 bot_description = ''' a bot that does everything you want it to do '''
-bot_prefix = "!"
 # The Bot token will be imported from config.py
 
 
@@ -32,10 +32,62 @@ intents.message_content = True
 
 
 # --------------------------------------------------
+# Prefixes from prefixes.json file
+# --------------------------------------------------
+async def get_server_prefix(bot, message):
+    with open("prefixes.json", "r") as f:
+        prefixes = json.load(f)
+
+    return prefixes[str(message.guild.id)]
+
+# --------------------------------------------------
 # Initializing the bot
 # --------------------------------------------------
-bot = commands.Bot(command_prefix=bot_prefix, description=bot_description, intents=discord.Intents.all())
+bot = commands.Bot(command_prefix=get_server_prefix, description=bot_description, intents=discord.Intents.all())
 
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
+# Adding prefixes to the prefixes.json file when the bot joins a server
+# <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
+@bot.event
+async def on_guild_join(guild):
+    with open("prefixes.json", "r") as f:
+        prefixes = json.load(f)
+
+    prefixes[str(guild.id)] = "!"
+
+    with open("prefixes.json", "w") as f:
+        json.dump(prefixes, f, indent=4)
+
+# --------------------------------------------------
+# Removing prefixes from the prefixes.json file when the bot leaves a server
+# --------------------------------------------------
+@bot.event
+async def on_guild_remove(guild):
+    with open("prefixes.json", "r") as f:
+        prefixes = json.load(f)
+
+    prefixes.pop(str(guild.id))
+
+    with open("prefixes.json", "w") as f:
+        json.dump(prefixes, f, indent=4)
+
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
+# Setting the bot prefix with a command
+# <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
+@bot.hybrid_command()
+@commands.has_permissions(administrator=True)
+async def set_prefix(ctx, new_prefix: str):
+    with open("prefixes.json", "r") as f:
+        prefixes = json.load(f)
+
+    prefixes[str(ctx.guild.id)] = new_prefix
+
+    with open("prefixes.json", "w") as f:
+        json.dump(prefixes, f, indent=4)
+
+    await ctx.send(f"Prefix set to {new_prefix}")
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
 # The bot is ready message + how many commands are loaded
