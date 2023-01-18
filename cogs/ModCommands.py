@@ -41,7 +41,7 @@ class ModCommands(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, amount: int = 1):
         await ctx.channel.purge(limit=amount+1)
-        await ctx.send(f"I deleted {amount} messages for you", delete_after=5)
+        await ctx.send(f"I deleted {str(amount)} messages for you", delete_after=5)
 
     @clear.error
     async def clear_error(self, ctx, error):
