@@ -35,7 +35,7 @@ intents.message_content = True
 # Prefixes from prefixes.json file
 # --------------------------------------------------
 async def get_server_prefix(bot, message):
-    with open("prefixes.json", "r") as f:
+    with open("jsonfiles/prefixes.json", "r") as f:
         prefixes = json.load(f)
 
     return prefixes[str(message.guild.id)]
@@ -51,12 +51,12 @@ bot = commands.Bot(command_prefix=get_server_prefix, description=bot_description
 # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
 @bot.event
 async def on_guild_join(guild):
-    with open("prefixes.json", "r") as f:
+    with open("jsonfiles/prefixes.json", "r") as f:
         prefixes = json.load(f)
 
     prefixes[str(guild.id)] = "!"
 
-    with open("prefixes.json", "w") as f:
+    with open("jsonfiles/prefixes.json", "w") as f:
         json.dump(prefixes, f, indent=4)
 
 # --------------------------------------------------
@@ -64,12 +64,12 @@ async def on_guild_join(guild):
 # --------------------------------------------------
 @bot.event
 async def on_guild_remove(guild):
-    with open("prefixes.json", "r") as f:
+    with open("jsonfiles/prefixes.json", "r") as f:
         prefixes = json.load(f)
 
     prefixes.pop(str(guild.id))
 
-    with open("prefixes.json", "w") as f:
+    with open("jsonfiles/prefixes.json", "w") as f:
         json.dump(prefixes, f, indent=4)
 
 
@@ -79,12 +79,12 @@ async def on_guild_remove(guild):
 @bot.hybrid_command()
 @commands.has_permissions(administrator=True)
 async def set_prefix(ctx, new_prefix: str):
-    with open("prefixes.json", "r") as f:
+    with open("jsonfiles/prefixes.json", "r") as f:
         prefixes = json.load(f)
 
     prefixes[str(ctx.guild.id)] = new_prefix
 
-    with open("prefixes.json", "w") as f:
+    with open("jsonfiles/prefixes.json", "w") as f:
         json.dump(prefixes, f, indent=4)
 
     await ctx.send(f"Prefix set to {new_prefix}")
