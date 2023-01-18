@@ -47,6 +47,10 @@ class ModCommands(commands.Cog):
     async def clear_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("You don't have permission to do that")
+        if isinstance(error, commands.BadArgument):
+            await ctx.send("Please enter a valid number")
+        if isinstance(error, commands.CommandInvokeError):
+            await ctx.send("I don't have permission to do that")
 
     # --------------------------------------------------
     # Kick
@@ -64,6 +68,10 @@ class ModCommands(commands.Cog):
             await ctx.send("You don't have permission to do that")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a member to kick")
+        if isinstance(error, commands.BadArgument):
+            await ctx.send("Please enter a valid member to kick")
+        if isinstance(error, commands.CommandInvokeError):
+            await ctx.send("I can't kick that member")
 
     # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
     # Ban
@@ -82,6 +90,10 @@ class ModCommands(commands.Cog):
             await ctx.send("You don't have permission to do that")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a member to ban")
+        if isinstance(error, commands.BadArgument):
+            await ctx.send("Please enter a valid member to ban")
+        if isinstance(error, commands.CommandInvokeError):
+            await ctx.send("I can't ban that member")
 
     # --------------------------------------------------
     # Un-Ban
@@ -108,6 +120,10 @@ class ModCommands(commands.Cog):
             await ctx.send("You don't have permission to do that")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a member to unban")
+        if isinstance(error, commands.BadArgument):
+            await ctx.send("Please enter a valid member to unban")
+        if isinstance(error, commands.CommandInvokeError):
+            await ctx.send("I can't unban that member, or that member is not banned")
 
     # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
     # Mute
@@ -127,6 +143,10 @@ class ModCommands(commands.Cog):
             await ctx.send("You don't have permission to do that")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a member to mute")
+        if isinstance(error, commands.BadArgument):
+            await ctx.send("Please enter a valid member to mute")
+        if isinstance(error, commands.CommandInvokeError):
+            await ctx.send("I can't mute that member, or that member is already muted")
 
     # --------------------------------------------------
     # Un-Mute
@@ -146,6 +166,10 @@ class ModCommands(commands.Cog):
             await ctx.send("You don't have permission to do that")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a member to unmute")
+        if isinstance(error, commands.BadArgument):
+            await ctx.send("Please enter a valid member to unmute")
+        if isinstance(error, commands.CommandInvokeError):
+            await ctx.send("I can't unmute that member, or that member is not muted")
 
 
 async def setup(bot):
