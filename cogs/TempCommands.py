@@ -2,6 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 import random
+from datetime import datetime
 
 
 class TempCommands(commands.Cog):
@@ -13,12 +14,34 @@ class TempCommands(commands.Cog):
         pass
 
     # --------------------------------------------------
+    # Embed
+    # --------------------------------------------------
+    async def embed(self, ctx, title, description, color):
+        embed_message = discord.Embed(title=title, description=description, color=color, timestamp=datetime.now())
+        embed_message.set_author(name=f"Requested by {ctx.author}", icon_url=ctx.author.avatar)
+        embed_message.add_field(name="field1_name", value="field1_description", inline=False)
+        embed_message.set_thumbnail(url=ctx.author.avatar)
+        embed_message.set_image(url=ctx.guild.icon)
+        embed_message.set_footer(text=f"ID: {ctx.author.id}")
+        await ctx.send(embed=embed_message)
+        return
+
+    # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
+    # Mention Command
+    # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
+    @commands.hybrid_command(description="will mention a user")
+    @app_commands.describe(member="the member to mention", reason="the reason for the mention")
+    async def mention(self, ctx, member: discord.Member, reason="No reason provided"):
+        await self.embed(ctx, "Mention", f"<@{ctx.author.id}> mentioned {member.mention}", ctx.author.color)
+
+    # --------------------------------------------------
     # Ping
     # --------------------------------------------------
     @commands.hybrid_command(description="Shows the bot's latency in ms.")
     async def ping(self, ctx):
         bot_latency = round(self.bot.latency * 1000)
         await ctx.send(f"Pong! \nbot latency: {bot_latency}ms")
+        # await self.embed(ctx, "Ping", f"bot latency: {bot_latency}ms", 0x00ff00, "None")
 
     # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
     # Add
@@ -27,22 +50,6 @@ class TempCommands(commands.Cog):
     @app_commands.describe(num1="the first number", num2="the second number")
     async def add(self, ctx, num1: int, num2: int):
         await ctx.send(num1 + num2)
-
-    # --------------------------------------------------
-    # Embed
-    # --------------------------------------------------
-    @commands.hybrid_command(description="will send an embed")
-    async def embed(self, ctx):
-        embed_message = discord.Embed(title="Embed Title", description="Embed Description", color=ctx.author.color)
-        embed_message.set_author(name=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar)
-        embed_message.add_field(name="Field 1", value="Field 1 Value", inline=False)
-        embed_message.add_field(name="Field 2", value="Field 2 Value", inline=False)
-        embed_message.add_field(name="Field 3", value="Field 3 Value", inline=False)
-        embed_message.set_thumbnail(url=ctx.guild.icon)
-        embed_message.set_image(url=ctx.guild.icon)
-        embed_message.set_footer(text="Embed Footer", icon_url=ctx.author.avatar)
-
-        await ctx.send(embed=embed_message)
 
     # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
     # Random_Quote
@@ -53,6 +60,7 @@ class TempCommands(commands.Cog):
             quotes = f.readlines()
             response = random.choice(quotes)
             await ctx.send(response)
+
 
 # --------------------------------------------------
 # connecting this file to the main one
