@@ -59,6 +59,7 @@ async def on_guild_join(guild):
     with open("jsonfiles/prefixes.json", "w") as f:
         json.dump(prefixes, f, indent=4)
 
+
 # --------------------------------------------------
 # Removing prefixes from the prefixes.json file when the bot leaves a server
 # --------------------------------------------------
@@ -88,6 +89,7 @@ async def set_prefix(ctx, new_prefix: str):
         json.dump(prefixes, f, indent=4)
 
     await ctx.send(f"Prefix set to {new_prefix}")
+
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>
 # The bot is ready message + how many commands are loaded

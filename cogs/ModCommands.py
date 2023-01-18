@@ -62,6 +62,7 @@ class ModCommands(commands.Cog):
         await member.kick(reason=reason)
         # await self.embed_for_mods(ctx, "Kick Member", f"<@{ctx.author.id}> kicked <@{member.id}>", self.kick_color, reason)
         await ctx.send(f"<@{member.id}> was kicked by <@{ctx.author.id}> for {reason}", delete_after=10)
+
     @kick.error
     async def kick_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
